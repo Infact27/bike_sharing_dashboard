@@ -47,7 +47,7 @@ def create_bymonth_df(df):
     return bymonth_df
 
 st.title("Dashboard Bike Sharing Analysis")
-df = pd.read_csv('day.csv')
+df = pd.read_csv('dashboard/day.csv')
 
 # mengubah tipe data kolom dteday menjadi datetime
 df['dteday'] = pd.to_datetime(df['dteday'])
