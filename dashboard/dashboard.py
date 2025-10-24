@@ -65,13 +65,13 @@ df['weathersit'] = df['weathersit'].map(weathersit_mapping)
 # memasang filter di sidebar
 with st.sidebar:
     st.header("Filter Data")
-    st.date_input(
-        label="Pilih rentang tanggal",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date,
-        key='date_filter'
+    date_range = st.date_input(
+    "Pilih rentang tanggal",
+    (min_date, max_date),
+    min_value=min_date,
+    max_value=max_date
     )
+    
     st.multiselect(
         label="Pilih musim",
         options=df['season'].unique(),
@@ -91,8 +91,8 @@ with st.sidebar:
 
 # Memfilter DataFrame berdasarkan filter yang dipilih
 filtered_df = df[
-    (df['dteday'] >= pd.to_datetime(st.session_state.date_filter[0])) &
-    (df['dteday'] <= pd.to_datetime(st.session_state.date_filter[1])) &
+    (df['dteday'] >= pd.to_datetime(date_range[0])) &
+    (df['dteday'] <= pd.to_datetime(date_range[1])) &
     (df['season'].isin(st.session_state.season_filter)) &
     (df['weathersit'].isin(st.session_state.weather_filter))
 ]
